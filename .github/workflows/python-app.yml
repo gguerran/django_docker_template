@@ -1,5 +1,3 @@
-
-  
 name: Continous Integration Python and PostgreSQL
 
 on: [push]
