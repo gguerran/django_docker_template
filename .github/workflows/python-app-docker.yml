@@ -15,12 +15,12 @@ jobs:
     - name: Build The App
       run: make build
     - name: Lint with black
-      run: docker-compose exec -T ecommerce_django black . && git status -s
+      run: docker-compose exec -T project_django black . && git status -s
     - name: Lint with flake8
-      run: docker-compose exec -T ecommerce_django flake8 . --extend-exclude=migrations,venv --max-line-length 120
+      run: docker-compose exec -T project_django flake8 . --extend-exclude=migrations,venv --max-line-length 120
     - name: Check makemigrations
-      run: docker-compose exec -T ecommerce_django python manage.py makemigrations && git status -s
+      run: docker-compose exec -T project_django python manage.py makemigrations && git status -s
     - name: Run migrations
-      run: docker-compose exec -T ecommerce_django python manage.py migrate
+      run: docker-compose exec -T project_django python manage.py migrate
     - name: Run tests
-      run: docker-compose exec -T ecommerce_django python manage.py test
+      run: docker-compose exec -T project_django python manage.py test
