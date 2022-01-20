@@ -1,0 +1,26 @@
+name: Continous Integration With Docker-Compose
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v2
+    - name: Generate .env's
+      run: make prebuild
+    - name: Build The App
+      run: make build
+    - name: Lint with black
+      run: docker-compose exec -T ecommerce_django black . && git status -s
+    - name: Lint with flake8
+      run: docker-compose exec -T ecommerce_django flake8 . --extend-exclude=migrations,venv --max-line-length 120
+    - name: Check makemigrations
+      run: docker-compose exec -T ecommerce_django python manage.py makemigrations && git status -s
+    - name: Run migrations
+      run: docker-compose exec -T ecommerce_django python manage.py migrate
+    - name: Run tests
+      run: docker-compose exec -T ecommerce_django python manage.py test
