@@ -1,5 +1,5 @@
 black==21.12b0
-Django==4.0.1
+Django==4.0.9
 flake8==4.0.1
 phonenumbers==8.12.41
 Pillow==9.0.0
